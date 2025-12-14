@@ -108,7 +108,7 @@ export default function Dashboard() {
         const user_id = decoded.id;
 
         const response = await axios.get(
-          `http://localhost:5000/spliting/v1/userledgers/${user_id}`,
+          `https://spliting-backend.onrender.com/spliting/v1/userledgers/${user_id}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
 

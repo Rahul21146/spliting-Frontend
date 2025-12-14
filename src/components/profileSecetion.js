@@ -11,7 +11,7 @@ export default function ProfileSection({ onBack }) {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/spliting/v1/profile", {
+        const res = await axios.get("https://spliting-backend.onrender.com/spliting/v1/profile", {
           headers: {
             Authorization: `Bearer ${token}`,
           },

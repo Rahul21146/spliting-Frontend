@@ -43,7 +43,7 @@ export default function LedgerDetails({ ledgerId, onBack }) {
 
       try {
         const res = await axios.get(
-          `http://localhost:5000/spliting/v1/ledger/${ledgerId}/${user_id}/details`
+          `https://spliting-backend.onrender.com/spliting/v1/ledger/${ledgerId}/${user_id}/details`
         );
         if (res.data.success) setLedger(res.data.ledger);
       } catch (err) {
@@ -61,7 +61,7 @@ export default function LedgerDetails({ ledgerId, onBack }) {
     const fetchTransactions = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/spliting/v1/ledger/${ledgerId}/transactions`
+          `https://spliting-backend.onrender.com/spliting/v1/ledger/${ledgerId}/transactions`
         );
         if (res.data.success) setTransactions(res.data.transactions);
       } catch (err) {
@@ -79,7 +79,7 @@ export default function LedgerDetails({ ledgerId, onBack }) {
     const fetchActivity = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/spliting/v1/activity/ledger/${ledgerId}`
+          `https://spliting-backend.onrender.com/spliting/v1/activity/ledger/${ledgerId}`
         );
         if (res.data.success) setActivities(res.data.activities);
       } catch (err) {
@@ -123,7 +123,7 @@ export default function LedgerDetails({ ledgerId, onBack }) {
       };
 
       const res = await axios.post(
-        "http://localhost:5000/spliting/v1/addexpense",
+        "https://spliting-backend.onrender.com/spliting/v1/addexpense",
         payload
       );
 
@@ -135,12 +135,12 @@ export default function LedgerDetails({ ledgerId, onBack }) {
 
         // REFRESH BOTH
         const a = await axios.get(
-          `http://localhost:5000/spliting/v1/activity/ledger/${ledgerId}`
+          `https://spliting-backend.onrender.com/spliting/v1/activity/ledger/${ledgerId}`
         );
         if (a.data.success) setActivities(a.data.activities);
 
         const t = await axios.get(
-          `http://localhost:5000/spliting/v1/ledger/${ledgerId}/transactions`
+          `https://spliting-backend.onrender.com/spliting/v1/ledger/${ledgerId}/transactions`
         );
         if (t.data.success) setTransactions(t.data.transactions);
 

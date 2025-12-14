@@ -54,7 +54,7 @@ function Signup() {
 
       // API Request
       const res = await axios.post(
-        "http://localhost:5000/spliting/v1/register",
+        "https://spliting-backend.onrender.com/spliting/v1/register",
         data,
         {
           headers: { "Content-Type": "multipart/form-data" },

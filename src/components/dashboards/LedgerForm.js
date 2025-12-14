@@ -60,7 +60,7 @@ const handleSubmit = async (e) => {
 
   try {
     const { data } = await axios.post(
-      "http://localhost:5000/spliting/v1/createLedger",
+      "https://spliting-backend.onrender.com/spliting/v1/createLedger",
       payload
     );
 

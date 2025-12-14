@@ -32,7 +32,7 @@ function Login() {
       setLoading(true);
 
       const response = await axios.post(
-        "http://localhost:5000/spliting/v1/login",
+        "https://spliting-backend.onrender.com/spliting/v1/login",
         {
           email: formData.email,
           password: formData.password,
