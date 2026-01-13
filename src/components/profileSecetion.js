@@ -5,13 +5,14 @@ import axios from "axios";
 export default function ProfileSection({ onBack }) {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
+  const mainApi = process.env.REACT_APP_MAIN_API || "http://localhost:5000";
 
   const token = localStorage.getItem("userToken"); // your JWT token
 
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axios.get("https://spliting-backend.onrender.com/spliting/v1/profile", {
+        const res = await axios.get(`${mainApi}/spliting/v1/profile`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

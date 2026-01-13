@@ -19,6 +19,7 @@ function Signup() {
 
   const [imagePreview, setImagePreview] = useState(null);
   const [loading, setLoading] = useState(false);
+  const mainApi = process.env.REACT_APP_MAIN_API || "http://localhost:5000";
   const navigate = useNavigate();
 
   // ---------------- HANDLE INPUT ----------------
@@ -54,7 +55,7 @@ function Signup() {
 
       // API Request
       const res = await axios.post(
-        "https://spliting-backend.onrender.com/spliting/v1/register",
+        `${mainApi}/spliting/v1/register`,
         data,
         {
           headers: { "Content-Type": "multipart/form-data" },

@@ -10,7 +10,7 @@ function Login() {
     email: "",
     password: "",
   });
-
+const mainApi = process.env.REACT_APP_MAIN_API || "http://localhost:5000";
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -32,7 +32,7 @@ function Login() {
       setLoading(true);
 
       const response = await axios.post(
-        "https://spliting-backend.onrender.com/spliting/v1/login",
+        `${mainApi}/spliting/v1/login`,
         {
           email: formData.email,
           password: formData.password,

@@ -33,6 +33,7 @@ const reviews = [
 
 function Home() {
   const [current, setCurrent] = useState(0);
+  const mainApi = process.env.REACT_APP_MAIN_API || "http://localhost:5000";
 
   const [stats, setStats] = useState({
     total_users: 0,
@@ -45,7 +46,7 @@ function Home() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-  const res = await fetch("https://spliting-backend.onrender.com/spliting/v1/dashboard/stats");
+  const res = await fetch(`${mainApi}/spliting/v1/dashboard/stats`);
         const data = await res.json();
         if (data.success) setStats(data.stats);
       } catch (err) {

@@ -90,6 +90,7 @@ export default function Dashboard() {
   const [view, setView] = useState("dashboard"); // dashboard | activity | profile | ledgerDetails
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [selectedLedger, setSelectedLedger] = useState(null);
+  const mainApi = process.env.REACT_APP_MAIN_API || "http://localhost:5000";
 
   const [ledgers, setLedgers] = useState([]);
   const [activities, setActivities] = useState([
@@ -108,7 +109,7 @@ export default function Dashboard() {
         const user_id = decoded.id;
 
         const response = await axios.get(
-          `https://spliting-backend.onrender.com/spliting/v1/userledgers/${user_id}`,
+          `${mainApi}/spliting/v1/userledgers/${user_id}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
 

@@ -7,6 +7,7 @@ import { jwtDecode } from "jwt-decode";
 export default function LedgerForm({ onCreate, onClose }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const mainApi = process.env.REACT_APP_MAIN_API || "http://localhost:5000";
   const [participants, setParticipants] = useState([
     { id: Date.now(), username: "", email: "" },
   ]);
@@ -60,7 +61,7 @@ const handleSubmit = async (e) => {
 
   try {
     const { data } = await axios.post(
-      "https://spliting-backend.onrender.com/spliting/v1/createLedger",
+      `${mainApi}/spliting/v1/createLedger`,
       payload
     );
 
