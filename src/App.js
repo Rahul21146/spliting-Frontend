@@ -7,6 +7,8 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
+import ForgotPassword from "./pages/forgetpassword";
+import ResetPassword from "./pages/ResetPasword";
 
 function App() {
   return (
@@ -16,8 +18,12 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Signup />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:email/:token" element={<ResetPassword />} />
+
+          
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }
