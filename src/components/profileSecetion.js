@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Pencil, Mail, Phone, User, ArrowLeft, MapPin, Calendar } from "lucide-react";
+import { Pencil, Mail, User, ArrowLeft, MapPin, Calendar } from "lucide-react";
 import axios from "axios";
 
 export default function ProfileSection({ onBack }) {
@@ -29,7 +29,7 @@ export default function ProfileSection({ onBack }) {
     };
 
     fetchProfile();
-  }, []);
+  }, [mainApi, token]);
 
   if (loading) {
     return (

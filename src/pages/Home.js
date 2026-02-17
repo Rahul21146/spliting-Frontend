@@ -54,7 +54,7 @@ function Home() {
       }
     };
     fetchStats();
-  }, []);
+  }, [mainApi]);
 
   const nextReview = () => setCurrent((prev) => (prev + 1) % reviews.length);
   const prevReview = () => setCurrent((prev) => (prev - 1 + reviews.length) % reviews.length);

@@ -53,7 +53,7 @@ export default function LedgerDetails({ ledgerId, onBack }) {
     };
 
     fetchLedger();
-  }, [ledgerId]);
+  }, [ledgerId, mainApi]);
 
   // =======================
   // FETCH TRANSACTIONS
@@ -71,7 +71,7 @@ export default function LedgerDetails({ ledgerId, onBack }) {
     };
 
     fetchTransactions();
-  }, [ledgerId]);
+  }, [ledgerId, mainApi]);
 
   // =======================
   // FETCH ACTIVITY
@@ -89,7 +89,7 @@ export default function LedgerDetails({ ledgerId, onBack }) {
     };
 
     fetchActivity();
-  }, [ledgerId]);
+  }, [ledgerId, mainApi]);
 
   const toggleMember = (id) => {
     setSelectedMembers((prev) =>
@@ -439,7 +439,7 @@ export default function LedgerDetails({ ledgerId, onBack }) {
 
             {paymentQr && (
               <div className="flex justify-center my-4">
-                <img src={paymentQr} className="w-40 h-40 border p-2 rounded" />
+                <img src={paymentQr} alt="Payment QR" className="w-40 h-40 border p-2 rounded" />
               </div>
             )}
 

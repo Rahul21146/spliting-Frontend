@@ -208,9 +208,8 @@
 
 
 import React, { useState } from "react";
-import { Mail, Lock, Eye, EyeOff, ArrowLeft, CheckCircle, AlertCircle, Shield, Key } from "lucide-react";
+import { Mail, Lock, Eye, EyeOff, ArrowLeft, CheckCircle, AlertCircle, Key } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
-import Navbar from "../components/Navbar";
 import { toast } from "react-toastify";
 import axios from "axios";
 
@@ -304,12 +303,7 @@ function ResetPassword() {
     return "Strong";
   };
 
-  const getStrengthBgColor = () => {
-    if (passwordStrength < 25) return "bg-red-50 border-red-100";
-    if (passwordStrength < 50) return "bg-orange-50 border-orange-100";
-    if (passwordStrength < 75) return "bg-yellow-50 border-yellow-100";
-    return "bg-green-50 border-green-100";
-  };
+  // getStrengthBgColor removed (unused)
 
   return (
     <div className="min-h-screen bg-gray-50">

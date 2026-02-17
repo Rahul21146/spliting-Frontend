@@ -111,12 +111,9 @@ const mainApi = process.env.REACT_APP_MAIN_API || "http://localhost:5000";
               </div>
 
               <div className="text-right text-sm">
-                <a  className="text-green-600 font-medium hover:text-green-700 hover: cursor-pointer transition "
-                onClick={()=>{
-                  navigate("/forgot-password");
-                }}>
+                <button type="button" className="text-green-600 font-medium hover:text-green-700 cursor-pointer transition" onClick={() => navigate("/forgot-password") }>
                   Forgot Password?
-                </a>
+                </button>
               </div>
 
               <button
@@ -141,6 +138,7 @@ const mainApi = process.env.REACT_APP_MAIN_API || "http://localhost:5000";
         <div className="hidden md:block w-1/2 relative bg-gray-900 h-full">
           <img
             src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f"
+            alt="Login background"
             className="absolute inset-0 w-full h-full object-cover opacity-90"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-green-800/90 via-green-800/60 to-transparent"></div>

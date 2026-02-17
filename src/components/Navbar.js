@@ -3,7 +3,6 @@ import {
   Menu,
   X,
   Home,
-  User,
   LogOut,
   LogIn,
   UserPlus,
