@@ -211,16 +211,16 @@ function Home() {
 
           <div className="max-w-3xl mx-auto bg-gray-50 border border-gray-200 p-10 rounded-2xl shadow-xl hover:shadow-2xl transition">
             <img
-              src="https://res.cloudinary.com/dh2go77wo/image/upload/v1764072480/BlogApp/irn8w43nl1f8rcmzghy5.jpg"
+              src="https://res.cloudinary.com/dh2go77wo/image/upload/v1754741460/BlogApp/kvwmzo7m5cb6bsosjpph.jpg"
               className="w-40 h-40 rounded-full mx-auto mb-6 shadow-lg"
               alt="Founder"
             />
 
-            <h3 className="text-3xl font-bold text-gray-900">Priyank Dwivedi</h3>
+            <h3 className="text-3xl font-bold text-gray-900">Rahul Singh</h3>
             <p className="text-green-700 font-semibold mt-1">Founder & Lead Developer</p>
 
             <p className="mt-6 text-lg text-gray-700 leading-relaxed">
-              Priyank Dwivedi created Spliting with a simple mission — to eliminate confusion in shared expenses.
+              Rahul Singh created Spliting with a simple mission — to eliminate confusion in shared expenses.
               What started as a solution for roommates has grown into a powerful platform loved by groups,
               teams, and friends across the country.
             </p>

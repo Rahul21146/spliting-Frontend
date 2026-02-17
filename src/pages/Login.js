@@ -111,7 +111,10 @@ const mainApi = process.env.REACT_APP_MAIN_API || "http://localhost:5000";
               </div>
 
               <div className="text-right text-sm">
-                <a href="#" className="text-green-600 font-medium hover:text-green-700 transition">
+                <a  className="text-green-600 font-medium hover:text-green-700 hover: cursor-pointer transition "
+                onClick={()=>{
+                  navigate("/forgot-password");
+                }}>
                   Forgot Password?
                 </a>
               </div>
