@@ -137,37 +137,32 @@ function ForgotPassword() {
   };
 
   return (
-    <div>
+    <div className="bg-black text-white min-h-screen">
       <Navbar />
-      <div className="h-screen w-full bg-gray-100 flex flex-col font-sans mt-12">
-        <div className="w-full bg-white overflow-hidden flex-1 flex flex-col md:flex-row">
+      <section className="pt-24 pb-20">
+        <div className="container mx-auto px-6">
+          <div className="max-w-md mx-auto">
 
-          <div className="w-full md:w-full h-full p-4 sm:p-8 lg:p-12 flex items-center justify-center">
-            <div className="w-full max-w-lg">
-              
-              {/* Back button */}
-              <button 
-                onClick={handleBackToLogin}
-                className="flex items-center text-gray-600 hover:text-green-600 mb-6 transition-colors"
-              >
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Back to Login
-              </button>
+            <button 
+              onClick={handleBackToLogin}
+              className="flex items-center text-gray-400 hover:text-red-400 mb-6 transition-colors"
+            >
+              <div className="bg-gray-900 p-2 rounded-full mr-3">
+                <ArrowLeft className="h-4 w-4" />
+              </div>
+              <span className="font-medium">Back to Login</span>
+            </button>
 
-              <h2 className="text-3xl font-extrabold mb-1 text-gray-900">
-                Forgot Password?
-              </h2>
-              <p className="text-gray-500 mb-8 text-base">
+            <div className="bg-gray-900 rounded-2xl p-6 border border-gray-800 shadow-2xl">
+              <h2 className="text-3xl font-extrabold mb-2">Forgot Password?</h2>
+              <p className="text-gray-400 mb-6 text-base">
                 No worries! Enter your email address and we'll send you a link to reset your password.
               </p>
 
-              <form className="flex flex-col gap-5" onSubmit={handleSendRestlink}>
+              <form className="flex flex-col gap-4" onSubmit={handleSendRestlink}>
 
-                {/* EMAIL */}
                 <div>
-                  <label className="block text-xs font-medium text-gray-700 mb-1">
-                    Email Address
-                  </label>
+                  <label className="block text-xs font-medium text-gray-400 mb-1">Email Address</label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                     <input
@@ -176,7 +171,7 @@ function ForgotPassword() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="name@example.com"
-                      className="w-full p-2 pl-9 border border-gray-300 rounded bg-gray-50 focus:ring-2 focus:ring-green-500 text-sm"
+                      className="w-full p-2 pl-9 border border-gray-800 rounded bg-gray-900 focus:ring-2 focus:ring-red-600 text-sm text-gray-200"
                     />
                   </div>
                 </div>
@@ -184,29 +179,26 @@ function ForgotPassword() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white font-bold py-3 rounded-lg shadow-xl mt-4 text-base tracking-wide transition-all"
+                  className="w-full bg-red-600 hover:bg-red-700 disabled:bg-gray-700 text-white font-bold py-3 rounded-lg shadow-xl text-base tracking-wide transition-all"
                 >
                   {loading ? "Sending..." : "Send Reset Link"}
                 </button>
 
-                <p className="text-center text-sm text-gray-500 mt-4">
+                <p className="text-center text-sm text-gray-400 mt-4">
                   Remember your password? 
                   <button 
                     type="button"
                     onClick={handleBackToLogin}
-                    className="text-green-600 font-bold hover:text-green-700 transition ml-1"
+                    className="text-red-500 font-bold hover:text-red-400 transition ml-1"
                   >
                     Sign in
                   </button>
                 </p>
-
               </form>
-
             </div>
           </div>
-
         </div>
-      </div>
+      </section>
     </div>
   );
 }

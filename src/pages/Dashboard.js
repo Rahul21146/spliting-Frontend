@@ -65,20 +65,16 @@ const metrics = [
 ];
 
 const MetricCard = ({ title, value, change, icon: Icon, color, bgColor }) => (
-  <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition">
+  <div className="bg-gray-900 p-6 rounded-xl shadow-lg border border-gray-800 hover:shadow-xl transition">
     <div className="flex items-center justify-between">
-      <p className="text-sm font-medium text-gray-500">{title}</p>
-      <div className={`p-2 rounded-full ${bgColor}`}>
-        <Icon className={`w-5 h-5 ${color}`} />
+      <p className="text-sm font-medium text-gray-400">{title}</p>
+      <div className="p-2 rounded-full bg-red-600/20">
+        <Icon className="w-5 h-5 text-red-500" />
       </div>
     </div>
     <div className="mt-4">
-      <p className="text-3xl font-extrabold text-gray-900">{value}</p>
-      <p
-        className={`text-sm mt-1 font-semibold ${
-          change && change.startsWith("+") ? "text-green-500" : "text-red-500"
-        }`}
-      >
+      <p className="text-3xl font-extrabold text-white">{value}</p>
+      <p className="text-sm mt-1 font-semibold text-red-500">
         {change} since last month
       </p>
     </div>
@@ -179,7 +175,7 @@ export default function Dashboard() {
         isSidebarOpen ? "translate-x-0" : "-translate-x-full"
       } md:translate-x-0 transition-transform duration-300 ease-in-out w-64 bg-gray-900 md:relative md:flex md:flex-col md:h-full`}
     >
-      <div className="p-5 flex items-center justify-between md:justify-start bg-green-700/80">
+      <div className="p-5 flex items-center justify-between md:justify-start bg-red-700/80">
         <h1 className="text-2xl font-extrabold text-white">Spliting</h1>
         <button className="md:hidden text-white" onClick={() => setIsSidebarOpen(false)}>
           <X className="w-6 h-6" />
@@ -198,7 +194,7 @@ export default function Dashboard() {
             }}
             className={`group w-full text-left flex items-center px-3 py-2 text-sm font-medium rounded-lg transition ${
               view === item.id
-                ? "bg-green-600 text-white shadow-md"
+                ? "bg-red-600 text-white shadow-md"
                 : "text-gray-300 hover:bg-gray-800 hover:text-white"
             }`}
           >
@@ -244,25 +240,25 @@ export default function Dashboard() {
     };
 
     return (
-      <header className="bg-white shadow-md sticky top-0 z-20">
+      <header className="bg-gray-900 shadow-md sticky top-0 z-20 border-b border-gray-800">
         <div className="px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <button className="md:hidden text-gray-600" onClick={() => setIsSidebarOpen(true)}>
+          <button className="md:hidden text-gray-400" onClick={() => setIsSidebarOpen(true)}>
             <Menu className="w-6 h-6" />
           </button>
 
           <div className="hidden md:block flex-1 max-w-lg">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
               <input
                 type="text"
                 placeholder="Search ledger or users..."
-                className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-green-500 focus:border-green-500 text-sm"
+                className="w-full pl-10 pr-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-red-600 focus:border-red-600 text-gray-200 text-sm placeholder-gray-500"
               />
             </div>
           </div>
 
           <div className="flex items-center space-x-4">
-            <button className="p-2 text-gray-500 rounded-full hover:bg-gray-100">
+            <button className="p-2 text-gray-400 rounded-full hover:bg-gray-800">
               <Bell className="w-6 h-6" />
             </button>
 
@@ -273,28 +269,28 @@ export default function Dashboard() {
                 onClick={() => setIsProfileMenuOpen((prev) => !prev)}
               >
                 <img
-                  className="h-10 w-10 rounded-full border-2 border-green-500"
+                  className="h-10 w-10 rounded-full border-2 border-red-600"
                   src={fallbackAvatar}
                   alt="user"
                 />
-                <span className="hidden sm:inline text-sm font-medium text-gray-700">
+                <span className="hidden sm:inline text-sm font-medium text-gray-200">
                   Profile
                 </span>
-                <ChevronDown className="w-4 h-4 text-gray-400" />
+                <ChevronDown className="w-4 h-4 text-gray-500" />
               </button>
 
               {isProfileMenuOpen && (
-                <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-md shadow-lg z-30">
+                <div className="absolute right-0 mt-2 w-40 bg-gray-900 border border-gray-700 rounded-md shadow-lg z-30">
                   <button
                     onClick={handleGoHome}
-                    className="w-full flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    className="w-full flex items-center px-3 py-2 text-sm text-gray-300 hover:bg-gray-800 hover:text-red-500"
                   >
                     <HomeIcon className="w-4 h-4 mr-2" />
                     Home
                   </button>
                   <button
                     onClick={handleGoProfile}
-                    className="w-full flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    className="w-full flex items-center px-3 py-2 text-sm text-gray-300 hover:bg-gray-800 hover:text-red-500"
                   >
                     <UserIcon className="w-4 h-4 mr-2" />
                     Profile
@@ -311,11 +307,11 @@ export default function Dashboard() {
   const DashboardContent = () => (
     <div className="p-6 max-w-6xl mx-auto">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-3xl font-extrabold text-gray-900">Dashboard Overview</h1>
+        <h1 className="text-3xl font-extrabold text-white">Dashboard Overview</h1>
 
         <button
           onClick={() => setIsFormOpen(true)}
-          className="px-3 py-2 rounded-md bg-green-600 text-white"
+          className="px-3 py-2 rounded-md bg-red-600 text-white hover:bg-red-700"
         >
           Create Ledger
         </button>
@@ -328,32 +324,32 @@ export default function Dashboard() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 bg-white rounded-xl shadow-lg border p-6">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">Your Ledgers</h2>
+        <div className="lg:col-span-2 bg-gray-900 rounded-xl shadow-lg border border-gray-800 p-6">
+          <h2 className="text-xl font-bold text-white mb-4">Your Ledgers</h2>
           <div className="space-y-4">
             {ledgers.map((l) => (
               <div
                 key={l.id}
                 onClick={() => openLedger(l)}
-                className="flex justify-between items-center p-3 bg-gray-50 rounded-lg border cursor-pointer hover:bg-gray-100"
+                className="flex justify-between items-center p-3 bg-gray-800 rounded-lg border border-gray-700 cursor-pointer hover:bg-gray-750"
               >
                 <div>
-                  <p className="font-semibold text-gray-800">{l.name}</p>
-                  <p className="text-sm text-gray-500">{l.members.length} members</p>
-                  <p className="text-sm text-gray-500">{l.description}</p>
+                  <p className="font-semibold text-white">{l.name}</p>
+                  <p className="text-sm text-gray-400">{l.members.length} members</p>
+                  <p className="text-sm text-gray-400">{l.description}</p>
                 </div>
 
                 <span
                   className={`px-3 py-1 text-sm rounded-full ${
                     l.status === "Active"
-                      ? "bg-yellow-100 text-yellow-800"
-                      : "bg-green-100 text-green-800"
+                      ? "bg-red-600/20 text-red-400"
+                      : "bg-green-600/20 text-green-400"
                   }`}
                 >
                   {l.status}
                 </span>
 
-                <span className="font-bold text-gray-700">
+                <span className="font-bold text-white">
                   ₹{l.members.reduce((s, m) => s + (m.amount || 0), 0)}
                 </span>
               </div>
@@ -361,13 +357,13 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-lg border p-6">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">Recent Activity</h2>
+        <div className="bg-gray-900 rounded-xl shadow-lg border border-gray-800 p-6">
+          <h2 className="text-xl font-bold text-white mb-4">Recent Activity</h2>
 
           {activities.slice(0, 5).map((a, i) => (
-            <div key={i} className="text-sm text-gray-600 border-l-2 pl-3 mb-2">
-              <strong>{a.actor}</strong> {a.action}
-              <div className="text-xs text-gray-400">{a.time}</div>
+            <div key={i} className="text-sm text-gray-400 border-l-2 border-red-600 pl-3 mb-2">
+              <strong className="text-white">{a.actor}</strong> {a.action}
+              <div className="text-xs text-gray-500">{a.time}</div>
             </div>
           ))}
         </div>
@@ -376,12 +372,12 @@ export default function Dashboard() {
   );
 
   return (
-    <div className="flex h-screen bg-gray-100 font-sans">
+    <div className="flex h-screen bg-gray-900 font-sans">
       <Sidebar />
       <div className="flex-1 flex flex-col overflow-hidden">
         <Header />
 
-        <main className="flex-1 overflow-y-auto">
+        <main className="flex-1 overflow-y-auto bg-gray-900">
           {view === "profile" && (
             <div className="max-w-6xl mx-auto">
               <ProfileSection onBack={() => setView("dashboard")} />

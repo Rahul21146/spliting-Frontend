@@ -99,117 +99,115 @@ function Login() {
   const handleGoogleError = () => {
     toast.error("Google sign-in was not successful. Try again.");
   };
-
   return (
-    <div>
+    <div className="bg-black text-white min-h-screen">
       <Navbar />
-      <div className="h-screen w-full bg-gray-100 flex flex-col font-sans mt-12">
-      <div className="w-full bg-white overflow-hidden flex-1 flex flex-col md:flex-row">
 
-        {/* LEFT SIDE */}
-        <div className="w-full md:w-1/2 h-full p-4 sm:p-8 lg:p-12 flex items-center justify-center">
-          <div className="w-full max-w-lg">
-            <h2 className="text-3xl font-extrabold mb-1 text-gray-900">Welcome Back</h2>
-            <p className="text-gray-500 mb-8 text-base">Sign in to continue your seamless journey.</p>
+      <section className="relative pt-24 pb-20 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black opacity-95"></div>
 
-            <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-              {/* EMAIL */}
-              <div>
-                <label className="block text-xs font-medium text-gray-700 mb-1">Email Address</label>
-                <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="name@example.com"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full p-2 pl-9 border border-gray-300 rounded bg-gray-50 focus:ring-2 focus:ring-green-500 text-sm"
-                  />
-                </div>
-              </div>
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div className="text-center md:text-left">
+              <span className="px-4 py-2 text-sm font-semibold bg-red-600/20 text-red-500 rounded-full border border-red-500/30">
+                Welcome Back to Spliting
+              </span>
 
-              {/* PASSWORD */}
-              <div>
-                <label className="block text-xs font-medium text-gray-700 mb-1">Password</label>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 –translate-y-1/2 h-4 w-4 text-gray-400" />
-                  <input
-                    type="password"
-                    name="password"
-                    placeholder="••••••••"
-                    value={formData.password}
-                    onChange={handleChange}
-                    required
-                    className="w-full p-2 pl-9 border border-gray-300 rounded bg-gray-50 focus:ring-2 focus:ring-green-500 text-sm"
-                  />
-                </div>
-              </div>
+              <h1 className="mt-6 text-5xl md:text-6xl font-extrabold leading-tight">
+                Sign in to your account.
+                <br />
+                <span className="text-red-600">Fast. Secure. Clear.</span>
+              </h1>
 
-              <div className="text-right text-sm">
-                <button
-                  type="button"
-                  className="text-green-600 font-medium hover:text-green-700 cursor-pointer transition"
-                  onClick={() => navigate("/forgot-password")}
-                >
-                  Forgot Password?
-                </button>
-              </div>
-
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg shadow-xl mt-4 text-base tracking-wide transition-all disabled:opacity-60"
-              >
-                {loading ? "Logging in..." : "Login to Account"}
-              </button>
-
-            </form>
-
-            {/* OR Separator */}
-            <div className="flex items-center my-4">
-              <div className="flex-1 h-0.5 bg-gray-300"></div>
-              <p className="px-2 text-sm text-gray-500">OR</p>
-              <div className="flex-1 h-0.5 bg-gray-300"></div>
+              <p className="mt-6 text-lg text-gray-400 max-w-2xl">
+                Manage your ledgers and track group expenses effortlessly.
+              </p>
             </div>
 
-            {/* GOOGLE LOGIN BUTTON */}
-            {googleClientId && (
-              <GoogleLogin
-                onSuccess={handleGoogleSuccess}
-                onError={handleGoogleError}
-              />
-            )}
+            <div className="flex items-center justify-center">
+              <div className="w-full max-w-md bg-gray-900 border border-gray-800 rounded-2xl p-8 shadow-2xl">
+                <h2 className="text-2xl font-bold mb-2">Welcome Back</h2>
+                <p className="text-gray-400 mb-6">Sign in to continue your seamless journey.</p>
 
-            <p className="text-center text-sm text-gray-500 mt-4">
-              Don't have an account?
-              <a href="/signup" className="text-green-600 font-bold hover:text-green-700 transition"> Sign up now</a>
-            </p>
+                <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+                  {/* EMAIL */}
+                  <div>
+                    <label className="block text-xs font-medium text-gray-400 mb-1">Email Address</label>
+                    <div className="relative">
+                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                      <input
+                        type="email"
+                        name="email"
+                        placeholder="name@example.com"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                        className="w-full p-2 pl-9 border border-gray-700 rounded bg-gray-900 focus:ring-2 focus:ring-red-600 text-sm text-gray-200"
+                      />
+                    </div>
+                  </div>
+
+                  {/* PASSWORD */}
+                  <div>
+                    <label className="block text-xs font-medium text-gray-400 mb-1">Password</label>
+                    <div className="relative">
+                      <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                      <input
+                        type="password"
+                        name="password"
+                        placeholder="••••••••"
+                        value={formData.password}
+                        onChange={handleChange}
+                        required
+                        className="w-full p-2 pl-9 border border-gray-700 rounded bg-gray-900 focus:ring-2 focus:ring-red-600 text-sm text-gray-200"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="text-right text-sm">
+                    <button
+                      type="button"
+                      className="text-red-500 font-medium hover:text-red-400 cursor-pointer transition"
+                      onClick={() => navigate("/forgot-password")}
+                    >
+                      Forgot Password?
+                    </button>
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-lg shadow-xl mt-4 text-base tracking-wide transition-all disabled:opacity-60"
+                  >
+                    {loading ? "Logging in..." : "Login to Account"}
+                  </button>
+
+                </form>
+
+                <div className="flex items-center my-4">
+                  <div className="flex-1 h-0.5 bg-gray-800"></div>
+                  <p className="px-2 text-sm text-gray-400">OR</p>
+                  <div className="flex-1 h-0.5 bg-gray-800"></div>
+                </div>
+
+                {googleClientId && (
+                  <div className="mt-4">
+                    <GoogleLogin onSuccess={handleGoogleSuccess} onError={handleGoogleError} />
+                  </div>
+                )}
+
+                <p className="text-center text-sm text-gray-400 mt-4">
+                  Don't have an account?
+                  <a href="/signup" className="text-red-500 font-bold hover:text-red-400 transition"> Sign up now</a>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* RIGHT SIDE IMAGE */}
-        <div className="hidden md:block w-1/2 relative bg-gray-900 h-full">
-          <img
-            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f"
-            alt="Login background"
-            className="absolute inset-0 w-full h-full object-cover opacity-90"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-green-800/90 via-green-800/60 to-transparent"></div>
-
-          <div className="absolute bottom-0 left-0 p-10 lg:p-16 text-white z-10">
-            <h3 className="text-4xl font-extrabold mb-3 leading-tight">
-              Access Your <br /> Dashboard.
-            </h3>
-            <p className="text-lg text-green-100 leading-relaxed max-w-md">
-              Securely sign in to manage your projects, data, and collaborations.
-            </p>
-          </div>
-        </div>
-
-      </div>
-    </div>
+        <div className="absolute top-10 right-10 w-72 h-72 bg-red-600/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-10 left-10 w-64 h-64 bg-red-500/10 rounded-full blur-3xl"></div>
+      </section>
     </div>
   );
 }

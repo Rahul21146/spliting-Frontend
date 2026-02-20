@@ -48,65 +48,65 @@ export default function ProfileSection({ onBack }) {
   }
 
   return (
-    <div className="p-6">
+    <div className="p-6 bg-gray-900 rounded-xl border border-gray-800 min-h-screen">
       <button
         onClick={onBack}
-        className="flex items-center text-gray-600 hover:text-gray-900 mb-6"
+        className="flex items-center text-gray-400 hover:text-white mb-6"
       >
         <ArrowLeft className="w-5 h-5 mr-2" /> Back
       </button>
 
-      <div className="bg-white shadow-lg rounded-2xl p-8 border">
+      <div className="bg-gray-800 shadow-lg rounded-2xl p-8 border border-gray-700">
 
         {/* Profile Header */}
         <div className="flex items-center gap-6">
           <img
             src={profile.image}
-            className="w-28 h-28 rounded-full border-4 border-green-500 shadow-md object-cover"
+            className="w-28 h-28 rounded-full border-4 border-red-600 shadow-md object-cover"
             alt="profile"
           />
 
           <div>
-            <h2 className="text-3xl font-bold text-gray-900">
+            <h2 className="text-3xl font-bold text-white">
               {profile.name}
             </h2>
-            <p className="text-gray-500">{profile.role.toUpperCase()}</p>
+            <p className="text-gray-400">{profile.role.toUpperCase()}</p>
           </div>
         </div>
 
         {/* Contact Info */}
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
 
-          <div className="bg-gray-50 rounded-xl p-5 border">
+          <div className="bg-gray-900 rounded-xl p-5 border border-gray-700">
             <div className="flex items-center gap-3 mb-2">
-              <Mail className="w-5 h-5 text-green-600" />
-              <p className="font-semibold text-gray-800">Email</p>
+              <Mail className="w-5 h-5 text-red-500" />
+              <p className="font-semibold text-white">Email</p>
             </div>
-            <p className="text-gray-600">{profile.email}</p>
+            <p className="text-gray-400">{profile.email}</p>
           </div>
 
-          <div className="bg-gray-50 rounded-xl p-5 border">
+          <div className="bg-gray-900 rounded-xl p-5 border border-gray-700">
             <div className="flex items-center gap-3 mb-2">
-              <MapPin className="w-5 h-5 text-green-600" />
-              <p className="font-semibold text-gray-800">Location</p>
+              <MapPin className="w-5 h-5 text-red-500" />
+              <p className="font-semibold text-white">Location</p>
             </div>
-            <p className="text-gray-600">{profile.location || "Not added"}</p>
+            <p className="text-gray-400">{profile.location || "Not added"}</p>
           </div>
 
-          <div className="bg-gray-50 rounded-xl p-5 border">
+          <div className="bg-gray-900 rounded-xl p-5 border border-gray-700">
             <div className="flex items-center gap-3 mb-2">
-              <User className="w-5 h-5 text-green-600" />
-              <p className="font-semibold text-gray-800">Gender</p>
+              <User className="w-5 h-5 text-red-500" />
+              <p className="font-semibold text-white">Gender</p>
             </div>
-            <p className="text-gray-600">{profile.gender}</p>
+            <p className="text-gray-400">{profile.gender}</p>
           </div>
 
-          <div className="bg-gray-50 rounded-xl p-5 border">
+          <div className="bg-gray-900 rounded-xl p-5 border border-gray-700">
             <div className="flex items-center gap-3 mb-2">
-              <Calendar className="w-5 h-5 text-green-600" />
-              <p className="font-semibold text-gray-800">Date of Birth</p>
+              <Calendar className="w-5 h-5 text-red-500" />
+              <p className="font-semibold text-white">Date of Birth</p>
             </div>
-            <p className="text-gray-600">
+            <p className="text-gray-400">
               {profile.date_of_birth
                 ? new Date(profile.date_of_birth).toDateString()
                 : "Not added"}
@@ -116,23 +116,23 @@ export default function ProfileSection({ onBack }) {
         </div>
 
         {/* About */}
-        <div className="mt-8 bg-gray-50 rounded-xl p-5 border">
+        <div className="mt-8 bg-gray-900 rounded-xl p-5 border border-gray-700">
           <div className="flex items-center gap-3 mb-2">
-            <User className="w-5 h-5 text-green-600" />
-            <p className="font-semibold text-gray-800">About</p>
+            <User className="w-5 h-5 text-red-500" />
+            <p className="font-semibold text-white">About</p>
           </div>
-          <p className="text-gray-600 leading-relaxed">
+          <p className="text-gray-300 leading-relaxed">
             Hi, I'm {profile.name}. I am using Spliting to manage shared expenses easily.
           </p>
         </div>
 
         {/* Buttons */}
         <div className="mt-8 flex gap-4">
-          <button className="px-5 py-2 bg-green-600 text-white font-medium rounded-lg shadow hover:bg-green-700 flex items-center gap-2">
+          <button className="px-5 py-2 bg-red-600 text-white font-medium rounded-lg shadow hover:bg-red-700 flex items-center gap-2">
             <Pencil className="w-4 h-4" /> Edit Profile
           </button>
 
-          <button className="px-5 py-2 border border-gray-300 rounded-lg shadow hover:bg-gray-100">
+          <button className="px-5 py-2 border border-gray-700 text-gray-200 rounded-lg shadow hover:bg-gray-700">
             Change Password
           </button>
         </div>

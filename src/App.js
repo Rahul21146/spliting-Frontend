@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import ForgotPassword from "./pages/forgetpassword";
 import ResetPassword from "./pages/ResetPasword";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
 
           
       </Routes>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }

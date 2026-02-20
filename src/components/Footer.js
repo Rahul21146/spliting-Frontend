@@ -14,10 +14,10 @@ function Footer() {
             Manage ledgers, split bills, and settle payments effortlessly.
           </p>
           <div className="flex gap-4 mt-4">
-            <Facebook className="w-6 h-6 hover:text-green-400 cursor-pointer" />
-            <Twitter className="w-6 h-6 hover:text-green-400 cursor-pointer" />
-            <Instagram className="w-6 h-6 hover:text-green-400 cursor-pointer" />
-            <Github className="w-6 h-6 hover:text-green-400 cursor-pointer" />
+            <Facebook className="w-6 h-6 hover:text-red-500 cursor-pointer" />
+            <Twitter className="w-6 h-6 hover:text-red-500 cursor-pointer" />
+            <Instagram className="w-6 h-6 hover:text-red-500 cursor-pointer" />
+            <Github className="w-6 h-6 hover:text-red-500 cursor-pointer" />
           </div>
         </div>
 
@@ -25,22 +25,22 @@ function Footer() {
         <div>
           <h3 className="text-xl font-bold text-white mb-4">Quick Links</h3>
           <ul className="space-y-2 text-gray-400">
-            <li className="hover:text-green-400 cursor-pointer">Home</li>
-            <li className="hover:text-green-400 cursor-pointer">About</li>
-            <li className="hover:text-green-400 cursor-pointer">Features</li>
-            <li className="hover:text-green-400 cursor-pointer">Pricing</li>
-            <li className="hover:text-green-400 cursor-pointer">Contact</li>
+            <li className="hover:text-red-500 cursor-pointer">Home</li>
+            <li className="hover:text-red-500 cursor-pointer">About</li>
+            <li className="hover:text-red-500 cursor-pointer">Features</li>
+            <li className="hover:text-red-500 cursor-pointer">Pricing</li>
+            <li className="hover:text-red-500 cursor-pointer">Contact</li>
           </ul>
         </div>
 
         {/* Contact Section */}
         <div>
           <h3 className="text-xl font-bold text-white mb-4">Contact Us</h3>
-          <p className="flex items-center gap-3 text-gray-400 hover:text-green-400 cursor-pointer">
+          <p className="flex items-center gap-3 text-gray-400 hover:text-red-500 cursor-pointer">
             <Mail className="w-5 h-5" />
             support@spliting.com
           </p>
-          <p className="flex items-center gap-3 mt-2 text-gray-400 hover:text-green-400 cursor-pointer">
+          <p className="flex items-center gap-3 mt-2 text-gray-400 hover:text-red-500 cursor-pointer">
             <Phone className="w-5 h-5" />
             +91 98765 43210
           </p>

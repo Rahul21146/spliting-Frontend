@@ -306,30 +306,28 @@ function ResetPassword() {
   // getStrengthBgColor removed (unused)
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* <Navbar /> */}
-
+    <div className="bg-black text-white min-h-screen">
       <div className="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md mx-auto">
 
           <button 
             onClick={handleBackToLogin}
-            className="flex items-center text-gray-600 hover:text-green-600 mb-6 transition-colors group"
+            className="flex items-center text-gray-400 hover:text-red-400 mb-6 transition-colors group"
           >
-            <div className="bg-white p-2 rounded-full shadow-md group-hover:shadow-lg transition-all">
+            <div className="bg-gray-900 p-2 rounded-full shadow-md group-hover:shadow-lg transition-all">
               <ArrowLeft className="h-4 w-4" />
             </div>
             <span className="ml-3 font-medium">Back to Login</span>
           </button>
 
-          <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+          <div className="bg-gray-900 rounded-2xl shadow-2xl overflow-hidden border border-gray-800">
 
-            <div className="bg-gradient-to-r from-green-600 to-emerald-500 px-6 py-6 text-center">
-              <div className="w-16 h-16 bg-white/20 rounded-2xl mx-auto mb-3 flex items-center justify-center backdrop-blur-sm">
+            <div className="bg-gradient-to-r from-red-600 to-red-500 px-6 py-6 text-center">
+              <div className="w-16 h-16 bg-white/10 rounded-2xl mx-auto mb-3 flex items-center justify-center backdrop-blur-sm">
                 <span className="text-white font-bold text-2xl">SW</span>
               </div>
               <h1 className="text-2xl font-bold text-white">Reset Password</h1>
-              <p className="text-green-50 text-sm mt-1">
+              <p className="text-red-50 text-sm mt-1">
                 Create a new password for your account
               </p>
             </div>
@@ -340,7 +338,7 @@ function ResetPassword() {
 
                 {/* Email Field */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                  <label className="block text-sm font-medium text-gray-400 mb-1.5">
                     Email Address
                   </label>
                   <div className="relative">
@@ -349,15 +347,15 @@ function ResetPassword() {
                       type="email"
                       value={email}
                       disabled
-                      className="w-full pl-10 pr-10 py-3 border border-gray-200 rounded-xl bg-gray-50 text-gray-600 cursor-not-allowed"
+                      className="w-full pl-10 pr-10 py-3 border border-gray-800 rounded-xl bg-gray-900 text-gray-400 cursor-not-allowed"
                     />
-                    <CheckCircle className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-green-500" />
+                    <CheckCircle className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-red-500" />
                   </div>
                 </div>
 
                 {/* New Password */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                  <label className="block text-sm font-medium text-gray-400 mb-1.5">
                     New Password
                   </label>
                   <div className="relative">
@@ -372,12 +370,12 @@ function ResetPassword() {
                         updatePasswordStrength(value);
                         setPasswordsMatch(value === confirmPassword || confirmPassword === "");
                       }}
-                      className="w-full pl-10 pr-12 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                      className="w-full pl-10 pr-12 py-3 border border-gray-800 rounded-xl focus:ring-2 focus:ring-red-600 focus:border-transparent bg-gray-900 text-gray-200"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-200"
                     >
                       {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                     </button>
@@ -387,10 +385,10 @@ function ResetPassword() {
                     <div className="mt-3">
                       <div className="flex items-center justify-between mb-1.5">
                         <div className="flex gap-1 flex-1">
-                          <div className={`h-2 flex-1 rounded-full ${passwordStrength >= 25 ? getStrengthColor() : 'bg-gray-200'}`}></div>
-                          <div className={`h-2 flex-1 rounded-full ${passwordStrength >= 50 ? getStrengthColor() : 'bg-gray-200'}`}></div>
-                          <div className={`h-2 flex-1 rounded-full ${passwordStrength >= 75 ? getStrengthColor() : 'bg-gray-200'}`}></div>
-                          <div className={`h-2 flex-1 rounded-full ${passwordStrength >= 100 ? getStrengthColor() : 'bg-gray-200'}`}></div>
+                          <div className={`h-2 flex-1 rounded-full ${passwordStrength >= 25 ? getStrengthColor() : 'bg-gray-800'}`}></div>
+                          <div className={`h-2 flex-1 rounded-full ${passwordStrength >= 50 ? getStrengthColor() : 'bg-gray-800'}`}></div>
+                          <div className={`h-2 flex-1 rounded-full ${passwordStrength >= 75 ? getStrengthColor() : 'bg-gray-800'}`}></div>
+                          <div className={`h-2 flex-1 rounded-full ${passwordStrength >= 100 ? getStrengthColor() : 'bg-gray-800'}`}></div>
                         </div>
                         <span className={`text-xs font-medium ml-2 ${getStrengthColor().replace('bg-', 'text-')}`}>
                           {getStrengthText()}
@@ -402,7 +400,7 @@ function ResetPassword() {
 
                 {/* Confirm Password */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                  <label className="block text-sm font-medium text-gray-400 mb-1.5">
                     Confirm New Password
                   </label>
                   <div className="relative">
@@ -416,19 +414,19 @@ function ResetPassword() {
                         setConfirmPassword(value);
                         setPasswordsMatch(password === value);
                       }}
-                      className="w-full pl-10 pr-12 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                      className="w-full pl-10 pr-12 py-3 border border-gray-800 rounded-xl focus:ring-2 focus:ring-red-600 focus:border-transparent bg-gray-900 text-gray-200"
                     />
                     <button
                       type="button"
                       onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-200"
                     >
                       {showConfirmPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                     </button>
                   </div>
 
                   {passwordsMatch ? (
-                    <p className="text-xs text-green-600 mt-1.5 flex items-center gap-1">
+                    <p className="text-xs text-red-500 mt-1.5 flex items-center gap-1">
                       <CheckCircle className="h-3 w-3" />
                       Passwords match
                     </p>
@@ -442,17 +440,17 @@ function ResetPassword() {
 
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold py-3.5 px-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center gap-2 mt-6"
+                  className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3.5 px-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center gap-2 mt-6"
                 >
                   <Key className="h-5 w-5" />
                   Reset Password
                 </button>
 
-                <p className="text-center text-sm text-gray-500 mt-4">
+                <p className="text-center text-sm text-gray-400 mt-4">
                   Remember your password? 
                   <button 
                     onClick={handleBackToLogin}
-                    className="text-green-600 font-semibold hover:text-green-700 transition ml-1 hover:underline"
+                    className="text-red-500 font-semibold hover:text-red-400 transition ml-1 hover:underline"
                   >
                     Sign in
                   </button>
@@ -462,7 +460,7 @@ function ResetPassword() {
             </div>
           </div>
 
-          <p className="text-center text-xs text-gray-400 mt-6">
+          <p className="text-center text-xs text-gray-500 mt-6">
             Need help? Contact us at support@splitwie.com
           </p>
         </div>

@@ -89,58 +89,58 @@ const handleSubmit = async (e) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/40" onClick={onClose} />
-      <form onSubmit={handleSubmit} className="relative z-10 bg-white rounded-xl shadow-xl w-full max-w-2xl p-6">
+      <div className="absolute inset-0 bg-black/60" onClick={onClose} />
+      <form onSubmit={handleSubmit} className="relative z-10 bg-gray-900 rounded-xl shadow-xl w-full max-w-2xl p-6 border border-gray-800">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-bold">Create New Ledger</h3>
-          <button type="button" className="text-sm text-gray-600" onClick={onClose}>Close</button>
+          <h3 className="text-lg font-bold text-white">Create New Ledger</h3>
+          <button type="button" className="text-sm text-gray-400 hover:text-white" onClick={onClose}>Close</button>
         </div>
 
         <label className="block mb-3">
-          <div className="text-sm font-medium text-gray-700 mb-1">Ledger Name</div>
+          <div className="text-sm font-medium text-gray-400 mb-1">Ledger Name</div>
           <input value={name} onChange={(e) => setName(e.target.value)}
-            className="w-full border px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-green-300"
+            className="w-full border border-gray-800 px-3 py-2 rounded-md bg-gray-800 text-gray-200 focus:outline-none focus:ring-2 focus:ring-red-500"
             placeholder="e.g. Goa Trip, Rent June" />
         </label>
 
         <label className="block mb-3">
-          <div className="text-sm font-medium text-gray-700 mb-1">Description</div>
+          <div className="text-sm font-medium text-gray-400 mb-1">Description</div>
           <textarea value={description} onChange={(e) => setDescription(e.target.value)}
-            className="w-full border px-3 py-2 rounded-md h-24 focus:outline-none focus:ring-2 focus:ring-green-300"
+            className="w-full border border-gray-800 px-3 py-2 rounded-md h-24 bg-gray-800 text-gray-200 focus:outline-none focus:ring-2 focus:ring-red-500"
             placeholder="Describe this ledger - purpose, notes..." />
         </label>
 
         <div className="mb-4">
           <div className="flex items-center justify-between mb-2">
-            <div className="text-sm font-medium text-gray-700">Participants</div>
+            <div className="text-sm font-medium text-gray-400">Participants</div>
             <div className="text-xs text-gray-500">{participants.length} added</div>
           </div>
 
           <div className="space-y-2">
             {participants.map((p, i) => (
               <div key={p.id} className="grid grid-cols-12 gap-2 items-center">
-                <input className="col-span-4 border px-2 py-2 rounded-md"
+                <input className="col-span-4 border border-gray-800 px-2 py-2 rounded-md bg-gray-800 text-gray-200"
                   placeholder="Username" value={p.username}
                   onChange={(e) => updateParticipant(p.id, "username", e.target.value)} />
-                <input className="col-span-6 border px-2 py-2 rounded-md"
+                <input className="col-span-6 border border-gray-800 px-2 py-2 rounded-md bg-gray-800 text-gray-200"
                   placeholder="Email (optional)" value={p.email}
                   onChange={(e) => updateParticipant(p.id, "email", e.target.value)} />
                 <button type="button" onClick={() => removeParticipant(p.id)}
-                  className="col-span-2 text-sm text-red-500">Remove</button>
+                  className="col-span-2 text-sm text-red-400 hover:text-red-300">Remove</button>
               </div>
             ))}
           </div>
 
           <div className="mt-3 flex items-center gap-3">
-            <button type="button" onClick={addParticipant} className="text-sm text-green-600">+ Add Participant</button>
+            <button type="button" onClick={addParticipant} className="text-sm text-red-500 hover:text-red-400">+ Add Participant</button>
           </div>
         </div>
 
         <div className="flex items-center justify-between">
-          <div className="text-sm text-gray-500">Ledger will appear under "Your Ledgers" when created.</div>
+          <div className="text-sm text-gray-400">Ledger will appear under "Your Ledgers" when created.</div>
           <div>
-            <button type="button" onClick={onClose} className="px-3 py-2 rounded-md text-gray-600 mr-2">Cancel</button>
-            <button type="submit" className="px-4 py-2 rounded-md bg-green-600 text-white">Create Ledger</button>
+            <button type="button" onClick={onClose} className="px-3 py-2 rounded-md text-gray-400 hover:text-gray-200 mr-2">Cancel</button>
+            <button type="submit" className="px-4 py-2 rounded-md bg-red-600 text-white hover:bg-red-700">Create Ledger</button>
           </div>
         </div>
       </form>
