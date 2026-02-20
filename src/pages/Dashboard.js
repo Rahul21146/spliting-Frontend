@@ -23,6 +23,7 @@ import ActivityFeed from "../components/dashboards/ActivityFeed";
 import LedgerForm from "../components/dashboards/LedgerForm";
 import LedgerDetails from "../components/dashboards/LedgerDetails";
 import ProfileSection from "../components/profileSecetion"; // ⭐ NEW IMPORT
+import Chat from "../components/Chat";
 import { useNavigate } from "react-router-dom";
 
 const fallbackAvatar = "/mnt/data/3b3bb00d-cc95-4799-9b60-3db31cd94245.png";
@@ -86,6 +87,7 @@ export default function Dashboard() {
   const [view, setView] = useState("dashboard"); // dashboard | activity | profile | ledgerDetails
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [selectedLedger, setSelectedLedger] = useState(null);
+  const [isChatOpen, setIsChatOpen] = useState(false);
   const mainApi = process.env.REACT_APP_MAIN_API || "http://localhost:5000";
 
   const [ledgers, setLedgers] = useState([]);
@@ -373,7 +375,10 @@ export default function Dashboard() {
 
   return (
     <div className="flex h-screen bg-gray-900 font-sans">
-      <Sidebar />
+      {/* Hide sidebar on small screens when chat is open to give chat full width */}
+      <div className={isChatOpen ? "hidden sm:block" : ""}>
+        <Sidebar />
+      </div>
       <div className="flex-1 flex flex-col overflow-hidden">
         <Header />
 
@@ -401,6 +406,32 @@ export default function Dashboard() {
             </div>
           )}
         </main>
+        {/* Floating chat button */}
+        <button
+          onClick={() => setIsChatOpen((s) => !s)}
+          className="fixed bottom-4 right-4 bg-red-600 text-white p-3 rounded-full shadow-lg z-50 hover:bg-red-700 sm:bottom-6 sm:right-6"
+          aria-label="Open chat"
+        >
+          Chat
+        </button>
+
+        {/* Chat panel (responsive) */}
+        {isChatOpen && (
+          <div className="fixed bottom-16 right-4 left-1/2 transform -translate-x-1/2 sm:left-auto sm:translate-x-0 sm:right-6 w-[94%] max-w-xs sm:max-w-sm md:w-80 h-80 sm:h-96 bg-gray-900 border border-gray-700 rounded-lg shadow-lg z-50 p-3">
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="text-white font-bold text-sm">Ledger Chat</h3>
+              <button
+                onClick={() => setIsChatOpen(false)}
+                className="text-gray-400 hover:text-white text-sm"
+              >
+                Close
+              </button>
+            </div>
+            <div className="h-[90%] overflow-hidden">
+              <Chat ledgerId={selectedLedger ? selectedLedger.id : 5} token={localStorage.getItem("userToken")} />
+            </div>
+          </div>
+        )}
       </div>
 
       {isFormOpen && (
