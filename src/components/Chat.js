@@ -42,7 +42,7 @@ const Chat = ({ ledgerId, token }) => {
     });
 
     return () => newSocket.close();
-  }, [ledgerId, token]);
+  }, [ledgerId, token, mainApi]);
 
   useEffect(() => {
     axios
