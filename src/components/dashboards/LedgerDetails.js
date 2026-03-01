@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import QRCode from "qrcode";
+// import QRCode from "qrcode";
 import axios from "axios";
 import { jwtDecode as jwt_decode } from "jwt-decode";
 import Header from "../Header";
@@ -61,21 +61,21 @@ export default function LedgerDetails({ ledgerId, onBack }) {
     fetchLedger();
   }, [ledgerId, mainApi]);
 
-  const handleMarkAsPaid = async () => {
-  try {
-    await axios.post(`${mainApi}/spliting/v1/settlement/mark-paid`, {
-      transactionId: payData.transaction_id,
-      payerId: payData.user_id
-    });
+//   const handleMarkAsPaid = async () => {
+//   try {
+//     await axios.post(`${mainApi}/spliting/v1/settlement/mark-paid`, {
+//       transactionId: payData.transaction_id,
+//       payerId: payData.user_id
+//     });
 
-    alert("Marked as Paid. Waiting for confirmation.");
-    setIsPayOpen(false);
+//     alert("Marked as Paid. Waiting for confirmation.");
+//     setIsPayOpen(false);
 
-  } catch (err) {
-    console.error(err);
-    alert("Error marking as paid");
-  }
-};
+//   } catch (err) {
+//     console.error(err);
+//     alert("Error marking as paid");
+//   }
+// };
 
   // =======================
   // FETCH TRANSACTIONS

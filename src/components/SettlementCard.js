@@ -153,11 +153,9 @@ import {
   XCircle, 
   Clock, 
   Wallet,
-  Calendar,
   Info,
   Copy,
   Check,
-  ExternalLink,
   X
 } from 'lucide-react';
 
