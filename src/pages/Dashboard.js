@@ -25,15 +25,21 @@ import LedgerDetails from "../components/dashboards/LedgerDetails";
 import ProfileSection from "../components/profileSecetion"; // ⭐ NEW IMPORT
 import Chat from "../components/Chat";
 import { useNavigate } from "react-router-dom";
+import SettlementDashboard from "../components/SettlementDashboard";
 
 const fallbackAvatar = "/mnt/data/3b3bb00d-cc95-4799-9b60-3db31cd94245.png";
+
+const token = localStorage.getItem("userToken");
+const decoded = token ? jwtDecode(token) : null;
+const userId = decoded?.id;
 
 // ⭐ UPDATED — Added Profile
 const navBase = [
   { id: "dashboard", name: "Dashboard", icon: HomeIcon },
   { id: "ledgers", name: "Ledgers", icon: Folder },
   { id: "team", name: "Team", icon: Users },
-  { id: "profile", name: "Profile", icon: Users }, // ⭐ NEW
+  { id: "settlement", name: "Payments", icon: DollarSign }, // ✅ ADD THIS
+  { id: "profile", name: "Profile", icon: Users },
   { id: "settings", name: "Settings", icon: Settings },
   { id: "activity", name: "Activity Feed", icon: Bell },
 ];
@@ -189,9 +195,8 @@ export default function Dashboard() {
           <button
             key={item.id}
             onClick={() => {
-              if (item.id === "activity") setView("activity");
-              else if (item.id === "profile") setView("profile");
-              else setView("dashboard");
+              setView(item.id);  // ✅ dynamic view switching
+  setIsSidebarOpen(false);
               setIsSidebarOpen(false);
             }}
             className={`group w-full text-left flex items-center px-3 py-2 text-sm font-medium rounded-lg transition ${
@@ -396,6 +401,12 @@ export default function Dashboard() {
           )}
 
           {view === "dashboard" && <DashboardContent />}
+
+          {view === "settlement" && (
+  <div className="max-w-6xl mx-auto">
+    <SettlementDashboard userId={userId} />
+  </div>
+)}
 
           {view === "ledgerDetails" && selectedLedger && (
             <div className="max-w-6xl mx-auto">

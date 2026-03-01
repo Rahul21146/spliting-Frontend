@@ -1,4 +1,10 @@
+import React from "react";
+import { jwtDecode as jwt_decode } from "jwt-decode";
+
 export default function TransactionHistory({ transactions, previewTransactions, setShowAllTransactions ,openPaymentPopup}) {
+  const token = localStorage.getItem("userToken");
+  const decoded = jwt_decode(token);
+  const loggedInUserId = decoded.id;
   return (
     <>
     <div className="mt-10">
@@ -21,7 +27,7 @@ export default function TransactionHistory({ transactions, previewTransactions, 
                     </div>
                   </div>
 
-                  <div className="text-right">
+                  {/* <div className="text-right">
                     <div className="font-bold text-white">₹{t.amount.toFixed(2)}</div>
                     <button
                       onClick={() => openPaymentPopup(t)}
@@ -29,7 +35,30 @@ export default function TransactionHistory({ transactions, previewTransactions, 
                     >
                       Pay
                     </button>
-                  </div>
+                  </div> */}
+<div className="text-right">
+  <div className="font-bold text-white">
+    ₹{t.amount.toFixed(2)}
+  </div>
+
+  {/* 👇 Show button ONLY if logged user is the payer */}
+  {t.for_member?.id === loggedInUserId && (
+    <>
+      {t.paid === 0 ? (
+        <button
+          onClick={() => openPaymentPopup(t)}
+          className="text-xs mt-1 px-2 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
+        >
+          Pay
+        </button>
+      ) : (
+        <span className="text-xs mt-1 px-2 py-1 bg-green-600 text-white rounded inline-block">
+          Paid
+        </span>
+      )}
+    </>
+  )}
+</div>
                 </div>
               ))}
             </div>

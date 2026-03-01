@@ -15,6 +15,7 @@ export default function LedgerDetails({ ledgerId, onBack }) {
   const [ledger, setLedger] = useState(null);
   const [transactions, setTransactions] = useState([]);
   const [activities, setActivities] = useState([]);
+  const [upiLink, setUpiLink] = useState("");
 
   // Show limited preview
   const previewActivities = activities.slice(0, 2);
@@ -33,9 +34,6 @@ export default function LedgerDetails({ ledgerId, onBack }) {
   // Payment popup
   const [isPayOpen, setIsPayOpen] = useState(false);
   const [payData, setPayData] = useState(null);
-  const [cardNumber, setCardNumber] = useState("");
-  const [cvv, setCvv] = useState("");
-  const [holderName, setHolderName] = useState("");
   const [paymentQr, setPaymentQr] = useState("");
   const mainApi = process.env.REACT_APP_MAIN_API || "http://localhost:5000";
 
@@ -62,6 +60,22 @@ export default function LedgerDetails({ ledgerId, onBack }) {
 
     fetchLedger();
   }, [ledgerId, mainApi]);
+
+  const handleMarkAsPaid = async () => {
+  try {
+    await axios.post(`${mainApi}/spliting/v1/settlement/mark-paid`, {
+      transactionId: payData.transaction_id,
+      payerId: payData.user_id
+    });
+
+    alert("Marked as Paid. Waiting for confirmation.");
+    setIsPayOpen(false);
+
+  } catch (err) {
+    console.error(err);
+    alert("Error marking as paid");
+  }
+};
 
   // =======================
   // FETCH TRANSACTIONS
@@ -163,25 +177,64 @@ export default function LedgerDetails({ ledgerId, onBack }) {
   // =======================
   // PAYMENT POPUP
   // =======================
-  const openPaymentPopup = async (tx) => {
-    setPayData(tx);
-    setIsPayOpen(true);
+  // const openPaymentPopup = async (tx) => {
+  //   setPayData(tx);
+  //   setIsPayOpen(true);
 
-    try {
-      const qr = await QRCode.toDataURL(`PAY ₹${tx.amount}`);
-      setPaymentQr(qr);
-    } catch {
-      setPaymentQr("");
-    }
-  };
+  //   try {
+  //     const qr = await QRCode.toDataURL(`PAY ₹${tx.amount}`);
+  //     setPaymentQr(qr);
+  //   } catch {
+  //     setPaymentQr("");
+  //   }
+  // };
 
-  const handlePayment = () => {
-    if (!cardNumber || !cvv || !holderName)
-      return alert("Please fill all fields");
+//   const openPaymentPopup = async (tx) => {
+//   setPayData(tx);
+//   setIsPayOpen(true);
 
-    alert("Payment Successful!");
-    setIsPayOpen(false);
-  };
+//   const upiId = tx.upi_id || "rahulsingh894856@okhdfcbank"; // receiver UPI
+//   const name = tx.receiver_name || "Receiver";
+
+//   const upiLink = `upi://pay?pa=${upiId}&pn=${name}&am=${tx.amount}&cu=INR&tn=Settlement for Ledger ${ledgerId}`;
+
+//   setUpiLink(upiLink);
+
+//   try {
+//     const qr = await QRCode.toDataURL(upiLink);
+//     setPaymentQr(qr);
+//   } catch {
+//     setPaymentQr("");
+//   }
+// };
+const openPaymentPopup = (tx) => {
+  setPayData(tx);  // 👈 full expense object
+
+  const upiId = tx.for_member?.upi_id;
+  const name = tx.for_member?.username;
+  const qrImage = tx.for_member?.qr_code; // ✅ real QR from DB
+
+  if (!upiId && !qrImage) {
+    alert("Receiver payment details not available");
+    return;
+  }
+
+  const upiLink = upiId
+    ? `upi://pay?pa=${upiId}&pn=${name}&am=${tx.amount}&cu=INR&tn=Settlement for Ledger ${ledgerId}`
+    : "";
+
+  setUpiLink(upiLink);
+  setPaymentQr(qrImage);  // ✅ use stored QR image
+  setIsPayOpen(true);
+};
+
+  // const handlePayment = () => {
+  //   if (!cardNumber || !cvv || !holderName)
+  //     return alert("Please fill all fields");
+
+  //   alert("Payment Successful!");
+  //   setIsPayOpen(false);
+  // };
 
   if (!ledger) return <div className="p-6 text-gray-300">Loading...</div>;
 
@@ -240,17 +293,12 @@ export default function LedgerDetails({ ledgerId, onBack }) {
       {/* PAYMENT MODAL */}
       {isPayOpen && (
         <PaymentModel
-          payData={payData}
-          paymentQr={paymentQr}
-          holderName={holderName}
-          cardNumber={cardNumber}
-          cvv={cvv}
-          setHolderName={setHolderName}
-          setCardNumber={setCardNumber}
-          setCvv={setCvv}
-          setIsPayOpen={setIsPayOpen}
-          handlePayment={handlePayment}
-        />
+  payData={payData}
+  paymentQr={paymentQr}
+  upiLink={upiLink}
+  setIsPayOpen={setIsPayOpen}
+  ledgerId={ledgerId}
+/>
       )}
 
       {/* ADD EXPENSE POPUP */}
