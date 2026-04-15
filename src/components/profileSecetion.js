@@ -25,8 +25,13 @@ export default function ProfileSection({ onBack }) {
       }
     };
 
+    if (!userToken) {
+      setLoading(false);
+      return;
+    }
+
     fetchProfile();
-  }, [dispatch]);
+  }, [dispatch, userToken]);
 
   if (loading) {
     return (
