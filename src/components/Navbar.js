@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   Menu,
   X,
@@ -9,33 +9,44 @@ import {
   LayoutDashboard,
 } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   const navigate = useNavigate();
+ const loading = useSelector((state) => state.auth?.loading);
+ const userToken= useSelector((state) => state.auth?.userToken);
 
   // Check login status
-  const checkLoginStatus = () => {
-    const token = localStorage.getItem("userToken");
-    setIsLoggedIn(!!token);
-  };
+  const checkLoginStatus = useCallback(() => {
+    if (userToken) {
+      setIsLoggedIn(true);
+    } 
+  }, [userToken]);
 
   useEffect(() => {
     checkLoginStatus();
-  }, []);
+  }, [checkLoginStatus]);
 
   useEffect(() => {
     window.addEventListener("storage", checkLoginStatus);
     return () => window.removeEventListener("storage", checkLoginStatus);
-  }, []);
+  }, [checkLoginStatus]);
 
   const handleLogout = () => {
     localStorage.removeItem("userToken");
     setIsLoggedIn(false);
     navigate("/login");
   };
+
+  if(loading){
+    return(
+      <div>
+        Loading....
+      </div>
+    )
+  }
 
  return (
   <header className="w-full fixed top-0 z-50 bg-black/90 backdrop-blur-xl border-b border-gray-800">

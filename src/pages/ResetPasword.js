@@ -210,12 +210,12 @@
 import React, { useState } from "react";
 import { Mail, Lock, Eye, EyeOff, ArrowLeft, CheckCircle, AlertCircle, Key } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import axios from "axios";
-
-const mainApi = process.env.REACT_APP_MAIN_API || "http://localhost:5000";
+import { resetPassword } from "../servises/operations";
 
 function ResetPassword() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const params = useParams();
 
@@ -257,34 +257,10 @@ function ResetPassword() {
   }
 
   try {
-    const response = await axios.post(
-        `${mainApi}/spliting/v1/reset-password`,
-      {
-        email: email,
-        password: password,
-        newPassword: confirmPassword,
-      }
-    );
-
-    if (response.data.success) {
-      toast.success("Password reset successful!");
-
-      setTimeout(() => {
-        navigate("/login");
-      }, 1500);
-
-    } else {
-      toast.error(response.data.message || "Reset failed");
-    }
-
+    await dispatch(resetPassword(email, password, confirmPassword, navigate));
   } catch (error) {
     console.error(error);
-
-    if (error.response) {
-      toast.error(error.response.data.message);
-    } else {
-      toast.error("Server error");
-    }
+    toast.error(error?.message || "Server error");
   }
 };
 

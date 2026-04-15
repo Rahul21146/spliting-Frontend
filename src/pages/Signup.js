@@ -281,11 +281,12 @@
 
 
 import React, { useState } from "react";
-import axios from "axios";
+import { useDispatch } from "react-redux";
 import { Camera, MapPin, Calendar, Mail, User, Lock, Heart, Hash } from "lucide-react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import { signup } from "../servises/operations";
 
 function Signup() {
   const [formData, setFormData] = useState({
@@ -304,7 +305,7 @@ function Signup() {
   const [imagePreview, setImagePreview] = useState(null);
   const [qrPreview, setQrPreview] = useState(null); // ✅ Added
   const [loading, setLoading] = useState(false);
-  const mainApi = process.env.REACT_APP_MAIN_API || "http://localhost:5000";
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -337,25 +338,7 @@ function Signup() {
 
     try {
       setLoading(true);
-
-      const data = new FormData();
-
-      Object.keys(formData).forEach((key) => {
-        if (formData[key]) {
-          data.append(key, formData[key]);
-        }
-      });
-
-      await axios.post(
-        `${mainApi}/spliting/v1/register`,
-        data,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      );
-
-      toast.success("Account created successfully!");
-      navigate("/login");
+      await dispatch(signup(formData, navigate));
 
     } catch (error) {
       console.error("Register error:", error);

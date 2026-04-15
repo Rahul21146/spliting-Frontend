@@ -1,7 +1,8 @@
 // Dashboard.jsx
 import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
+import { useDispatch } from "react-redux";
 import { jwtDecode } from "jwt-decode";
+import { getUserLedgers } from "../servises/operations";
 
 import {
   Home as HomeIcon,
@@ -94,7 +95,7 @@ export default function Dashboard() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [selectedLedger, setSelectedLedger] = useState(null);
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const mainApi = process.env.REACT_APP_MAIN_API || "http://localhost:5000";
+  const dispatch = useDispatch();
 
   const [ledgers, setLedgers] = useState([]);
   const [activities, setActivities] = useState([
@@ -112,13 +113,10 @@ export default function Dashboard() {
         const decoded = jwtDecode(token);
         const user_id = decoded.id;
 
-        const response = await axios.get(
-          `${mainApi}/spliting/v1/userledgers/${user_id}`,
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
+        const response = await dispatch(getUserLedgers(user_id));
 
-        if (response.data.success) {
-          const mappedLedgers = response.data.ledgers.map((l) => ({
+        if (response?.success) {
+          const mappedLedgers = response.ledgers.map((l) => ({
             id: parseInt(l.ledger_id, 10), // convert ledger_id to numeric
             name: l.ledger_name,
             description: l.description,
@@ -150,7 +148,7 @@ export default function Dashboard() {
     };
 
     fetchLedgers();
-  }, [mainApi]);
+  }, [dispatch]);
 
   // ⭐ Handle Create Ledger
   const handleCreateLedger = (ledger) => {

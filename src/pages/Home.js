@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import {
   ShieldCheck,
   Zap,
@@ -15,6 +16,7 @@ import {
 } from 'lucide-react';
 
 import Navbar from '../components/Navbar';
+import { getDashboardStats } from '../servises/operations';
 
 // -- Feature Data --
 const features = [
@@ -33,7 +35,7 @@ const reviews = [
 
 function Home() {
   const [current, setCurrent] = useState(0);
-  const mainApi = process.env.REACT_APP_MAIN_API || "http://localhost:5000";
+  const dispatch = useDispatch();
 
   const [stats, setStats] = useState({
     total_users: 0,
@@ -46,15 +48,14 @@ function Home() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-  const res = await fetch(`${mainApi}/spliting/v1/dashboard/stats`);
-        const data = await res.json();
-        if (data.success) setStats(data.stats);
+        const data = await dispatch(getDashboardStats());
+        if (data?.success) setStats(data.stats);
       } catch (err) {
         console.error("Stats Fetch Error:", err);
       }
     };
     fetchStats();
-  }, [mainApi]);
+  }, [dispatch]);
 
   const nextReview = () => setCurrent((prev) => (prev + 1) % reviews.length);
   const prevReview = () => setCurrent((prev) => (prev - 1 + reviews.length) % reviews.length);

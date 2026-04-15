@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { useDispatch } from "react-redux";
+import { markPaid } from "../servises/operations";
 
 export default function PaymentModel({
   payData,
@@ -8,7 +9,7 @@ export default function PaymentModel({
   setIsPayOpen,
   ledgerId
 }) {
-  const mainApi = process.env.REACT_APP_MAIN_API || "http://localhost:5000";
+  const dispatch = useDispatch();
   const [paymentMethod, setPaymentMethod] = useState(null);
   const [utrNumber, setUtrNumber] = useState("");
   const [loading, setLoading] = useState(false);
@@ -36,14 +37,14 @@ export default function PaymentModel({
   try {
     setLoading(true);
 
-    await axios.post(`${mainApi}/spliting/v1/settlement/mark-paid`, {
-      ledger_id: ledgerId,        // make sure this exists
+    await dispatch(markPaid({
+      ledger_id: ledgerId,
       expense_id: payData.expense_id,
-      sender_id: payData.for_member?.id,  // who is paying (current user)
-      receiver_id: payData.added_by?.id,  // who will verify
+      sender_id: payData.for_member?.id,
+      receiver_id: payData.added_by?.id,
       amount: payData.amount,
-      utr_number: utrNumber
-    });
+      utr_number: utrNumber,
+    }));
 
     alert("Marked as Paid. Waiting for confirmation.");
     setIsPayOpen(false);

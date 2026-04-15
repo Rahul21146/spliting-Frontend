@@ -1,12 +1,21 @@
 import React, { useEffect, useState, useRef } from "react";
 import { io } from "socket.io-client";
-import axios from "axios";
+import { useDispatch } from "react-redux";
+import { getMessages } from "../servises/operations";
+
+const socketUrl = (() => {
+  try {
+    return new URL(process.env.REACT_APP_API_URL || "http://localhost:5000").origin;
+  } catch (error) {
+    return "http://localhost:5000";
+  }
+})();
 
 const Chat = ({ ledgerId, token }) => {
   const [socket, setSocket] = useState(null);
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
-  const mainApi = process.env.REACT_APP_MAIN_API || "http://localhost:5000";
+  const dispatch = useDispatch();
 
   const [currentUserId, setCurrentUserId] = useState(null);
   const scrollRef = useRef(null);
@@ -29,8 +38,9 @@ const Chat = ({ ledgerId, token }) => {
   };
 
   useEffect(() => {
-    const newSocket = io(mainApi, {
+    const newSocket = io(socketUrl, {
       auth: { token },
+      path: "/socket.io",
     });
 
     setSocket(newSocket);
@@ -41,15 +51,28 @@ const Chat = ({ ledgerId, token }) => {
       setMessages((prev) => [...prev, data]);
     });
 
+    newSocket.on("connect_error", (error) => {
+      console.error("Socket connect error:", error);
+    });
+
+    newSocket.on("error", (error) => {
+      console.error("Socket error:", error);
+    });
+
     return () => newSocket.close();
-  }, [ledgerId, token, mainApi]);
+  }, [ledgerId, token]);
 
   useEffect(() => {
-    axios
-      .get(`${mainApi}/spliting/v1/ledger/${ledgerId}/messages`)
-      .then((res) => setMessages(res.data || []))
-      .catch(() => {});
-  }, [ledgerId, mainApi]);
+    const loadMessages = async () => {
+      try {
+        const data = await dispatch(getMessages(ledgerId));
+        setMessages(data.messages || data || []);
+      } catch (error) {
+        console.error("Chat messages load error:", error);
+      }
+    };
+    loadMessages();
+  }, [ledgerId, dispatch]);
 
   useEffect(() => {
     setCurrentUserId(getUserIdFromToken(token));

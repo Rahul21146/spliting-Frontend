@@ -3,10 +3,11 @@
 import React, { useState } from "react";
 import { Mail, Lock } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import Navbar from "../components/Navbar";
 import { GoogleLogin } from "@react-oauth/google";
+import { login, loginWithGoogle } from "../servises/operations";
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -15,7 +16,7 @@ function Login() {
   });
 
   const navigate = useNavigate();
-  const mainApi = process.env.REACT_APP_MAIN_API || "http://localhost:5000";
+  const dispatch = useDispatch();
   const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
   const [loading, setLoading] = useState(false);
@@ -38,25 +39,7 @@ function Login() {
 
     try {
       setLoading(true);
-
-      const response = await axios.post(
-        `${mainApi}/spliting/v1/login`,
-        {
-          email: formData.email,
-          password: formData.password,
-        }
-      );
-
-      const token = response.data?.token;
-
-      if (!token) {
-        toast.error("Token missing from server!");
-        return;
-      }
-
-      localStorage.setItem("userToken", token);
-      toast.success("Login Successful!");
-      navigate("/dashboard");
+      await dispatch(login(formData.email, formData.password, navigate));
     } catch (error) {
       console.error("Login Error:", error);
       toast.error(error.response?.data?.message || "Invalid email or password!");
@@ -69,24 +52,7 @@ function Login() {
 
     try {
       setLoading(true);
-
-      // Send Google ID token to backend
-      const res = await axios.post(
-        `${mainApi}/spliting/v1/google`,
-        { token: response.credential },
-        { headers: { "Content-Type": "application/json" }}
-      );
-
-      const token = res.data.token;
-
-      if (!token) {
-        toast.error("Google login failed!");
-        return;
-      }
-
-      localStorage.setItem("userToken", token);
-      toast.success("Google Login Successful!");
-      navigate("/dashboard");
+      await dispatch(loginWithGoogle(response.credential, navigate));
 
     } catch (err) {
       console.error("Google Login Error:", err);
@@ -198,7 +164,9 @@ function Login() {
 
                 <p className="text-center text-sm text-gray-400 mt-4">
                   Don't have an account?
-                  <a href="/signup" className="text-red-500 font-bold hover:text-red-400 transition"> Sign up now</a>
+                  <a 
+                  onClick={() => navigate("/signup")}
+                  href="/signup" className="text-red-500 font-bold hover:text-red-400 transition"> Sign up now</a>
                 </p>
               </div>
             </div>

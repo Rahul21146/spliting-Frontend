@@ -93,15 +93,16 @@
 import React, { useState } from "react";
 import { Mail, ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import Navbar from "../components/Navbar";
 import { toast } from "react-toastify";
-import axios from "axios";
+import { forgotPasswordLink } from "../servises/operations";
 
 function ForgotPassword() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
-  const mainApi = process.env.REACT_APP_MAIN_API || "http://localhost:5000";
 
   const handleBackToLogin = () => {
     navigate("/login");
@@ -116,21 +117,9 @@ function ForgotPassword() {
 
     try {
       setLoading(true);
-
-      const response = await axios.post(
-        `${mainApi}/spliting/v1/forgot-password`, // change to your backend route
-        { email }
-      );
-
-      if (response.data.success) {
-        toast.success("Reset link sent to your email");
-        setEmail("");
-      }
-
+      await dispatch(forgotPasswordLink(email, setEmail));
     } catch (error) {
-      toast.error(
-        error?.response?.data?.message || "Reset Link not sent"
-      );
+      toast.error(error?.message || "Reset Link not sent");
     } finally {
       setLoading(false);
     }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 // import QRCode from "qrcode";
-import axios from "axios";
+import { useDispatch } from "react-redux";
 import { jwtDecode as jwt_decode } from "jwt-decode";
 import Header from "../Header";
 import LedgerMembers from "../LedgerMembers";
@@ -10,12 +10,14 @@ import MemberActivityFullScreen from "../MemberActivityFullScreen";
 import FullScreenTransaction from "../FullScreenTransaction";
 import PaymentModel from "../PaymentModel";
 import AddExpence from "../AddExpence";
+import { getLedgerDetails, getActivity, getTransactions, addExpense } from "../../servises/operations";
 
 export default function LedgerDetails({ ledgerId, onBack }) {
   const [ledger, setLedger] = useState(null);
   const [transactions, setTransactions] = useState([]);
   const [activities, setActivities] = useState([]);
   const [upiLink, setUpiLink] = useState("");
+  const dispatch = useDispatch();
 
   // Show limited preview
   const previewActivities = activities.slice(0, 2);
@@ -35,7 +37,6 @@ export default function LedgerDetails({ ledgerId, onBack }) {
   const [isPayOpen, setIsPayOpen] = useState(false);
   const [payData, setPayData] = useState(null);
   const [paymentQr, setPaymentQr] = useState("");
-  const mainApi = process.env.REACT_APP_MAIN_API || "http://localhost:5000";
 
   // =======================
   // FETCH LEDGER DETAILS
@@ -49,17 +50,15 @@ export default function LedgerDetails({ ledgerId, onBack }) {
       const user_id = decoded.id;
 
       try {
-        const res = await axios.get(
-          `${mainApi}/spliting/v1/ledger/${ledgerId}/${user_id}/details`
-        );
-        if (res.data.success) setLedger(res.data.ledger);
+        const res = await dispatch(getLedgerDetails(ledgerId, user_id));
+        if (res?.success) setLedger(res.ledger);
       } catch (err) {
         console.error("Ledger Fetch Error:", err);
       }
     };
 
     fetchLedger();
-  }, [ledgerId, mainApi]);
+  }, [ledgerId, dispatch]);
 
 //   const handleMarkAsPaid = async () => {
 //   try {
@@ -83,17 +82,15 @@ export default function LedgerDetails({ ledgerId, onBack }) {
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
-        const res = await axios.get(
-          `${mainApi}/spliting/v1/ledger/${ledgerId}/transactions`
-        );
-        if (res.data.success) setTransactions(res.data.transactions);
+        const res = await dispatch(getTransactions(ledgerId));
+        if (res?.success) setTransactions(res.transactions);
       } catch (err) {
         console.error("Transaction Fetch Error:", err);
       }
     };
 
     fetchTransactions();
-  }, [ledgerId, mainApi]);
+  }, [ledgerId, dispatch]);
 
   // =======================
   // FETCH ACTIVITY
@@ -101,17 +98,15 @@ export default function LedgerDetails({ ledgerId, onBack }) {
   useEffect(() => {
     const fetchActivity = async () => {
       try {
-        const res = await axios.get(
-          `${mainApi}/spliting/v1/activity/ledger/${ledgerId}`
-        );
-        if (res.data.success) setActivities(res.data.activities);
+        const res = await dispatch(getActivity(ledgerId));
+        if (res?.success) setActivities(res.activities);
       } catch (err) {
         console.error("Activity Fetch Error:", err);
       }
     };
 
     fetchActivity();
-  }, [ledgerId, mainApi]);
+  }, [ledgerId, dispatch]);
 
   const toggleMember = (id) => {
     setSelectedMembers((prev) =>
@@ -145,27 +140,19 @@ export default function LedgerDetails({ ledgerId, onBack }) {
         selectedMembers,
       };
 
-      const res = await axios.post(
-        `${mainApi}/spliting/v1/addexpense`,
-        payload
-      );
+      const res = await dispatch(addExpense(payload));
 
-      if (res.data.success) {
+      if (res?.success) {
         setIsExpenseOpen(false);
         setExpenseTitle("");
         setExpenseAmount("");
         setSelectedMembers([]);
 
-        // REFRESH BOTH
-        const a = await axios.get(
-          `${mainApi}/spliting/v1/activity/ledger/${ledgerId}`
-        );
-        if (a.data.success) setActivities(a.data.activities);
+        const a = await dispatch(getActivity(ledgerId));
+        if (a?.success) setActivities(a.activities);
 
-        const t = await axios.get(
-          `${mainApi}/spliting/v1/ledger/${ledgerId}/transactions`
-        );
-        if (t.data.success) setTransactions(t.data.transactions);
+        const t = await dispatch(getTransactions(ledgerId));
+        if (t?.success) setTransactions(t.transactions);
 
         alert("Expense added successfully!");
       }

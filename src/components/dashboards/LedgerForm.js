@@ -1,13 +1,14 @@
 // LedgerForm.jsx
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
- import axios from "axios";
 import { jwtDecode } from "jwt-decode";
+import { createLedger } from "../../servises/operations";
 
 export default function LedgerForm({ onCreate, onClose }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const mainApi = process.env.REACT_APP_MAIN_API || "http://localhost:5000";
+  const dispatch = useDispatch();
   const [participants, setParticipants] = useState([
     { id: Date.now(), username: "", email: "" },
   ]);
@@ -60,10 +61,7 @@ const handleSubmit = async (e) => {
   console.log("Sending payload:", payload);
 
   try {
-    const { data } = await axios.post(
-      `${mainApi}/spliting/v1/createLedger`,
-      payload
-    );
+    const data = await dispatch(createLedger(payload));
 
     toast.success("Ledger created successfully!");
 
@@ -74,7 +72,6 @@ const handleSubmit = async (e) => {
     setName("");
     setDescription("");
     setParticipants([{ id: Date.now(), username: "", email: "" }]);
-
 
   } catch (error) {
     console.error("API Error:", error);

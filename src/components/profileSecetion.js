@@ -1,25 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { Pencil, Mail, User, ArrowLeft, MapPin, Calendar } from "lucide-react";
-import axios from "axios";
+import { useDispatch } from "react-redux";
+import { getProfile } from "../servises/operations";
+import { useSelector } from "react-redux";
+
 
 export default function ProfileSection({ onBack }) {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
-  const mainApi = process.env.REACT_APP_MAIN_API || "http://localhost:5000";
-
-  const token = localStorage.getItem("userToken"); // your JWT token
+  const userToken = useSelector(state => state.auth.UserToken);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axios.get(`${mainApi}/spliting/v1/profile`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        if (res.data.success) {
-          setProfile(res.data.user);
+        const res = await dispatch(getProfile(userToken));
+        if (res?.success) {
+          setProfile(res.user);
         }
       } catch (err) {
         console.error("Profile fetch failed:", err);
@@ -29,7 +26,7 @@ export default function ProfileSection({ onBack }) {
     };
 
     fetchProfile();
-  }, [mainApi, token]);
+  }, [dispatch]);
 
   if (loading) {
     return (
