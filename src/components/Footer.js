@@ -1,7 +1,9 @@
 import React from "react";
 import { Facebook, Twitter, Instagram, Github, Mail, Phone } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 function Footer() {
+  const navigate = useNavigate();
   return (
     <footer className="bg-gray-900 text-gray-300 pt-14 pb-8">
       <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12">
@@ -25,7 +27,12 @@ function Footer() {
         <div>
           <h3 className="text-xl font-bold text-white mb-4">Quick Links</h3>
           <ul className="space-y-2 text-gray-400">
-            <li className="hover:text-red-500 cursor-pointer">Home</li>
+            <li
+              onClick={() => navigate("/")}
+              className="hover:text-red-500 cursor-pointer"
+            >
+              Home
+            </li>
             <li className="hover:text-red-500 cursor-pointer">About</li>
             <li className="hover:text-red-500 cursor-pointer">Features</li>
             <li className="hover:text-red-500 cursor-pointer">Pricing</li>
